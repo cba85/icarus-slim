@@ -20,22 +20,77 @@ This framework is based on [Slim PHP micro framework](https://www.slimframework.
 
 ## Architecture
 
-The architecture of the framework follows the rules of [pds/skeleton](https://github.com/php-pds/skeleton) the standard filesystem skeleton suitable for all PHP packages.
+The architecture of the framework follows the rules of [pds/skeleton](https://github.com/php-pds/skeleton) the standard filesystem skeleton suitable for all PHP packages mixed with the ones of [Ruby on Rails](http://guides.rubyonrails.org/getting_started.html#creating-the-blog-application) for a web application.
 
-|                          |              |
-| ------------------------ | -------------|
-| command-line executables | `bin/`       |
-| configuration files      | `config/`    |
-| documentation files      | `docs/`      |
-| web server files         | `public/`    |
-| other resource files     | `resources/` |
-| PHP source code          | `src/`       |
-| test code                | `tests/`     |
+```
+bin/
+config/
+└── settings.php
+db/
+docs/
+logs/
+public/
+├── assets/
+├── .htaccess
+├── favicon.ico
+├── index.php
+└── robots.txt
+resources/
+├── assets
+└── views
+src/
+├── Controllers/
+├── Helpers/
+├── Middleware/
+├── Models/
+├── lib.php
+└── routes.php
+tests/
+tmp/
+.editorconfig
+.env.example
+.gitignore
+composer.json
+Makefile
+```
 
-## .editorconfig
+### Folders
+
+| Description                | Folder name  |
+| -------------------------- | -------------|
+| Command-line executables   | `bin/`       |
+| Configuration files        | `config/`    |
+| Database schema/migrations | `db/`        |
+| Documentation files        | `docs/`      |
+| Log files                  | `logs/`      |
+| Web server files           | `public/`    |
+| Other resource files       | `resources/` |
+| PHP source code            | `src/`       |
+| Test code                  | `tests/`     |
+| Temporary files            | `tmp/`       |
+
+### .editorconfig
 
 The framework has an `.editorconfig` file to respect PHP standards coding style.
 
-## Makefile
+### .env
+
+The framework use a `.env` file for environment variables.
+
+This file must be created based on `.env.example` file.
+
+### Makefile
 
 A `Makefile`
+
+## Example
+
+The framework comes with an example page `/`using [Bootstrap 4](https://getbootstrap.com).
+
+## Tests
+
+To execute the test suite, you'll need phpunit.
+
+```bash
+$ phpunit
+```
