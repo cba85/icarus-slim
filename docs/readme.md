@@ -74,6 +74,14 @@ $ make serve
 
 The framework comes with an example page `/` using [Bootstrap 4](https://getbootstrap.com).
 
+### Clean
+
+To clean (delete) the framework of the example files, just run:
+
+```bash
+$ make clean
+```
+
 ## Language & libraries
 
 ### Php
