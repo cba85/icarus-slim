@@ -17,6 +17,8 @@ Icarus Slim is a framework based on [Slim](https://www.slimframework.com), the P
 
 ## Philosophy
 
+Icarus Slim is a tool to make products the simple and fast way. The name comes from [Icarus myth](https://en.wikipedia.org/wiki/Icarus), an example of [hubris](https://en.wikipedia.org/wiki/Hubris). It's a reminder to never forget to stay simple and humble when creating products.
+
 This framework complies to the standards of the [PHP-FIG](https://www.php-fig.org) and adhere to the best-practices put forward by [PHP The "Right" Way](http://www.phptherightway.com).
 
 This framework respect the [KISS](https://nl.wikipedia.org/wiki/KISS-principe) (Keep it simple, stupid) and the [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) (Don't Repeat Yourself) principles.
