@@ -2,6 +2,18 @@
 
 Icarus Slim is a framework based on [Slim](https://www.slimframework.com), the PHP micro-framework.
 
+## Index
+
+- [Philosophy](#philosophy)
+- [Slim framework](#slim-framework)
+- [Getting started](#getting-started)
+- [Langage & libraries](#language-libraries)
+- [Architecture](#architecture)
+- [Makefile](#makefile)
+- [Tests](#tests)
+- [Authors](#authors)
+- [License](#license)
+
 ## Philosophy
 
 This framework complies to the standards of the [PHP-FIG](https://www.php-fig.org) and adhere to the best-practices put forward by [PHP The "Right" Way](http://www.phptherightway.com).
@@ -17,6 +29,76 @@ David David Heinemeier Hansson in [Getting Real](https://www.amazon.com/Getting-
 This framework is based on [Slim PHP micro framework](https://www.slimframework.com).
 
 📖 [Documentation](https://www.slimframework.com/docs/)
+
+## Getting started
+
+### Installation
+
+```bash
+$ composer install
+```
+
+#### .env
+
+The framework use a `.env` file for environment variables thanks to [phpdotenv](https://github.com/vlucas/phpdotenv) package.
+
+This file must be created based on the `.env.example` file.
+
+Create a `.env` file by copying the `.env-example` file and modify the values with your environment:
+
+```bash
+$ make copy-env
+```
+
+### Apache
+
+The framework comes with an `/public/.htaccess` file.
+
+### Nginx
+
+In `nginx.conf` file of the server:
+
+```nginx
+try_files $uri /index.php;
+```
+
+### Usage
+
+```bash
+$ php -S 0.0.0.0:8080 -t public public/index.php
+# or using Makefile
+$ make serve
+```
+
+### Example
+
+The framework comes with an example page `/` using [Bootstrap 4](https://getbootstrap.com).
+
+## Language & libraries
+
+### Php
+
+Php >= `7.0` is required.
+
+### Composer
+
+Dependancy packages are located in `vendor` folder and required in `composer.json`.
+
+| Library | Description |
+| ------- | ----------- |
+| [PHP](http://php.net)     | Server-side code |
+| [Composer](https://getcomposer.org) | PHP dependency management |
+| [Slim](https://www.slimframework.com) |  PHP micro framework |
+| [phpdotenv](https://github.com/vlucas/phpdotenv) | Environment variables in `.env` |
+| [Config](https://github.com/hassankhan/config) | Lightweight configuration file loader |
+| [Twig](https://twig.symfony.com) | Templating |
+| [Slim Twig view](https://github.com/slimphp/Twig-View) | Slim Framework view layer built on top of Twig |
+| [Slim Twig Flash](https://github.com/kanellov/slim-twig-flash) | Twig extension for rendering slim flash messages |
+| [Monolog](https://github.com/Seldaek/monolog) | Logger |
+
+### .editorconfig
+
+The framework has an [editorconfig](http://editorconfig.org) file to respect PHP standards coding style.
 
 ## Architecture
 
@@ -69,23 +151,61 @@ Makefile
 | Test code                  | `tests/`     |
 | Temporary files            | `tmp/`       |
 
-### .editorconfig
+### Assets
 
-The framework has an `.editorconfig` file to respect PHP standards coding style.
+| Path | Description|
+|-|-|
+| `resources/assets/` | Assets for development (unminified)  |
+| `public/assets/` | Assets for production (minified) and libraries |
 
-### .env
+### Helpers
 
-The framework use a `.env` file for environment variables.
+| Path | Description|
+|-|-|
+| `src/Helpers/helpers.php` | Helper functions |
 
-This file must be created based on `.env.example` file.
+The helper functions are autoloaded by Composer.
 
-### Makefile
+### Controllers
 
-A `Makefile`
+| Path | Description|
+|-|-|
+| `src/Controllers/` | Controllers folder |
+| `src/Controllers/Controller.php` | Base Controller |
 
-## Example
+### Middlewares
 
-The framework comes with an example page `/`using [Bootstrap 4](https://getbootstrap.com).
+| Path | Description|
+|-|-|
+| `src/Middlewares/` | Middlewares folder |
+
+### Views
+
+| Path | Description|
+|-|-|
+| `resources/views/` | Views (Twig) folder |
+
+## Makefile
+
+A Makefile is included with the project.
+
+```bash
+$ make [command]
+```
+
+Use `help` to list available commands.
+
+Scripts are categorized:
+- Serve the project
+- Tests
+- Sitemap
+- Minify css and js
+- Concat css and js
+
+### Sources
+
+- http://wonko.com/post/simple-makefile-to-minify-css-and-js
+- https://gist.github.com/bpierre/1341808
 
 ## Tests
 
@@ -94,3 +214,11 @@ To execute the test suite, you'll need phpunit.
 ```bash
 $ phpunit
 ```
+
+## Authors
+
+- [Clément Barbaza](https://www.github.com/cba85)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details.
