@@ -4,7 +4,10 @@
  * App settings
  */
 return [
-    'environment' => env('APP_ENV', 'local'),
-    'url' => env('APP_URL', 'http://localhost:8080'),
-    'debug' => env('APP_DEBUG', true),
+    'app' => [
+        'name' => getenv('APP_NAME', 'icarus-slim'),
+        'environment' => getenv('APP_ENV', 'local'),
+        'url' => getenv('APP_URL', 'http://localhost:8080'),
+        'debug' => getenv('APP_DEBUG', true),
+    ],
 ];

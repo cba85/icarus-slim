@@ -4,6 +4,8 @@
  * Slim settings
  */
 return [
-    'displayErrorDetails' => true,
-    'addContentLengthHeader' => false,
+    'slim' => [
+        'displayErrorDetails' => true,
+        'addContentLengthHeader' => false,
+    ],
 ];

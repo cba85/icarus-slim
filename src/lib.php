@@ -1,23 +1,47 @@
 <?php
 use Noodlehaus\Config;
-use App\Classes\Database;
+use Aura\Sql\ExtendedPdo;
 
 /**
  * DIC Configuration
  * Container
  */
 
+ // Configuration
+$container['config'] = function () {
+    return new Config([
+        __DIR__ . '/../config/app.php',
+        __DIR__ . '/../config/database.php',
+        __DIR__ . '/../config/logger.php',
+        __DIR__ . '/../config/view.php',
+    ]);
+};
+
+// Log (monolog)
+$container['logger'] = function ($container) {
+    $settings = $container['config']->get('logger');
+    $logger = new Monolog\Logger('Icarus');
+    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
+    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+    return $logger;
+};
+
 // Database
 $container['db'] = function ($container) {
-    $config = $container->get('settings')['database'];
-    return new Database($config);
+    $settings = $container['config']->get('database');
+    return new ExtendedPdo(
+        $settings['driver'] . ':dbname=' . $settings['database'] . ';host=' . $settings['host'],
+        $settings['username'],
+        $settings['password'],
+        ['PDO::ATTR_ERRMODE','PDO::ERRMODE_EXCEPTION']
+    );
 };
 
 // View renderer (twig)
 $container['view'] = function ($container) {
-    $settings = $container->get('settings')['view'];
-    $app = $container->get('settings')['app'];
-    $app['debug'] ? $config = ['cache' => false] : $config = ['cache' => true, 'cache_path' => $settings['cache_path']];
+    $settings = $container['config']->get('view');
+    $debug = $container['config']->get('app.debug');
+    $debug ? $config = ['cache' => false] : $config = ['cache' => true, 'cache_path' => $settings['cache_path']];
     $view = new \Slim\Views\Twig($settings['template_path'], $config);
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
@@ -35,7 +59,7 @@ $container['flash'] = function () {
 };
 
 // CSRF
-$container['csrf'] = function ($c) {
+$container['csrf'] = function ($container) {
     return new \Slim\Csrf\Guard;
 };
 
