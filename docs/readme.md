@@ -191,9 +191,13 @@ The helper functions are autoloaded by Composer.
 
 The framework use a `.env` file for environment variables thanks to [phpdotenv](https://github.com/vlucas/phpdotenv) package.
 
+📖 [Documentation](https://github.com/vlucas/phpdotenv)
+
 ### Config files
 
 The framework use config files located in `config/` folder thanks to [hassankhan/config](https://github.com/hassankhan/config) to load the files.
+
+📖 [Documentation](https://github.com/hassankhan/config)
 
 #### Dependency
 
@@ -235,7 +239,11 @@ $this->config->all();
 
 ### Templating: Twig
 
-For templating, the framework uses [Twig](https://twig.symfony.com) library with 2 add-ons:
+For templating, the framework uses [Twig](https://twig.symfony.com) library.
+
+📖 [Documentation](https://twig.symfony.com/doc/2.x/)
+
+The framework uses 2 add-ons for Twig:
 
 | Library | Description |
 | ------- | ----------- |
@@ -260,6 +268,8 @@ return $this->view($response, 'index.html');
 ### Logger: Monolog
 
 For logging, the framework uses [Monolog](https://github.com/Seldaek/monolog) library.
+
+📖 [Documentation](https://github.com/Seldaek/monolog/tree/master/doc)
 
 #### Dependency
 
@@ -288,6 +298,8 @@ Using the package natively:
 ### Database: Aura Sql
 
 For database connection, the framework uses [aura/sql](https://github.com/auraphp/Aura.Sql).
+
+📖 [Documentation](https://github.com/auraphp/Aura.Sql/blob/3.x/docs/index.md)
 
 #### Dependency
 
