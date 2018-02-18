@@ -195,6 +195,14 @@ The framework use a `.env` file for environment variables thanks to [phpdotenv](
 
 The framework use config files located in `config/` folder thanks to [hassankhan/config](https://github.com/hassankhan/config) to load the files.
 
+#### Dependency
+
+This feature has a dependency in Slim container in `src/lib.php` file.
+
+```php
+$container['config'];
+```
+
 #### List
 
 | File | Description |
@@ -234,6 +242,14 @@ For templating, the framework uses [Twig](https://twig.symfony.com) library with
 | [Slim Twig view](https://github.com/slimphp/Twig-View) | Slim Framework view layer built on top of Twig |
 | [Slim Twig Flash](https://github.com/kanellov/slim-twig-flash) | Twig extension for rendering slim flash messages |
 
+#### Dependency
+
+This feature has a dependency in Slim container in `src/lib.php` file.
+
+```php
+$container['view'];
+```
+
 #### Usage
 
 ```php
@@ -244,6 +260,14 @@ return $this->view($response, 'index.html');
 ### Logger: Monolog
 
 For logging, the framework uses [Monolog](https://github.com/Seldaek/monolog) library.
+
+#### Dependency
+
+This feature has a dependency in Slim container in `src/lib.php` file.
+
+```php
+$container['logger'];
+```
 
 #### Usage
 
@@ -259,6 +283,18 @@ Using the package natively:
     $this->container->logger->debug($text);
     $this->container->logger->info($text);
     // ...
+```
+
+### Database: Aura Sql
+
+For database connection, the framework uses [aura/sql](https://github.com/auraphp/Aura.Sql).
+
+#### Dependency
+
+This feature has a dependency in Slim container in `src/lib.php` file.
+
+```php
+$container['db'];
 ```
 
 ## Makefile
