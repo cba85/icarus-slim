@@ -31,9 +31,12 @@ class Controller
      * @param  string $key
      * @return string
      */
-    public function config($key)
+    public function config($key = null)
     {
-        return $this->config->get($key);
+        if ($key) {
+            return $this->config->get($key);
+        }
+        return $this->config->all();
     }
 
     /**
