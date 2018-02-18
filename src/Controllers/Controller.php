@@ -60,10 +60,37 @@ class Controller
     public function log($text, $type = 'info')
     {
         switch ($type) {
+            // 100
             case 'debug':
                 $log = $this->container->logger->debug($text);
                 break;
 
+            // 250
+            case 'notice':
+                $log = $this->container->logger->notice($text);
+                break;
+
+            // 300
+            case 'warning':
+            $log = $this->container->logger->warning($text);
+            break;
+
+            // 400
+            case 'error':
+            $log = $this->container->logger->error($text);
+            break;
+
+            // 550
+            case 'alert':
+            $log = $this->container->logger->alert($text);
+            break;
+
+            // 600
+            case 'emergency':
+            $log = $this->container->logger->emergency($text);
+            break;
+
+            // 200
             case 'info':
             default:
                 $log = $this->container->logger->info($text);

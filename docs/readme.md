@@ -9,6 +9,7 @@ Icarus Slim is a framework based on [Slim](https://www.slimframework.com), the P
 - [Getting started](#getting-started)
 - [Langage & libraries](#language-libraries)
 - [Architecture](#architecture)
+- [Features](#features)
 - [Makefile](#makefile)
 - [Tests](#tests)
 - [Deploy](#deploy)
@@ -93,19 +94,7 @@ Php >= `7.0` is required.
 
 ### Composer
 
-Dependancy packages are located in `vendor` folder and required in `composer.json`.
-
-| Library | Description |
-| ------- | ----------- |
-| [PHP](http://php.net)     | Server-side code |
-| [Composer](https://getcomposer.org) | PHP dependency management |
-| [Slim](https://www.slimframework.com) |  PHP micro framework |
-| [phpdotenv](https://github.com/vlucas/phpdotenv) | Environment variables in `.env` |
-| [Config](https://github.com/hassankhan/config) | Lightweight configuration file loader |
-| [Twig](https://twig.symfony.com) | Templating |
-| [Slim Twig view](https://github.com/slimphp/Twig-View) | Slim Framework view layer built on top of Twig |
-| [Slim Twig Flash](https://github.com/kanellov/slim-twig-flash) | Twig extension for rendering slim flash messages |
-| [Monolog](https://github.com/Seldaek/monolog) | Logger |
+Dependancies packages are located in `vendor` folder and required in `composer.json`.
 
 ### .editorconfig
 
@@ -195,6 +184,82 @@ The helper functions are autoloaded by Composer.
 | Path | Description|
 |-|-|
 | `resources/views/` | Views (Twig) folder |
+
+## Features
+
+### .Env
+
+The framework use a `.env` file for environment variables thanks to [phpdotenv](https://github.com/vlucas/phpdotenv) package.
+
+### Config files
+
+The framework use config files located in `config/` folder thanks to [hassankhan/config](https://github.com/hassankhan/config) to load the files.
+
+#### List
+
+| File | Description |
+|-|-|
+| `app.php` | Application settings |
+| `database.php` | Database settings |
+| `logger.php` | Monolog settings |
+| `slim.php` | Slim framework settings |
+| `view.php` | Twig settings |
+
+#### Usage
+
+Controller helper:
+
+```php
+// One setting
+$this->config('app.url');
+// All settings
+$this->config();
+```
+
+Using the package natively:
+
+```php
+// One setting
+$this->config->get('app.url');
+// All settings
+$this->config->all();
+```
+
+### Templating: Twig
+
+For templating, the framework uses [Twig](https://twig.symfony.com) library with 2 add-ons:
+
+| Library | Description |
+| ------- | ----------- |
+| [Slim Twig view](https://github.com/slimphp/Twig-View) | Slim Framework view layer built on top of Twig |
+| [Slim Twig Flash](https://github.com/kanellov/slim-twig-flash) | Twig extension for rendering slim flash messages |
+
+#### Usage
+
+```php
+// Display a view
+return $this->view($response, 'index.html');
+```
+
+### Logger: Monolog
+
+For logging, the framework uses [Monolog](https://github.com/Seldaek/monolog) library.
+
+#### Usage
+
+Controller helper:
+
+```php
+$this->log($text, $type);
+```
+
+Using the package natively:
+
+```php
+    $this->container->logger->debug($text);
+    $this->container->logger->info($text);
+    // ...
+```
 
 ## Makefile
 
