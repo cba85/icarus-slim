@@ -126,6 +126,20 @@ class Controller
     }
 
     /**
+     * Return CSRF values
+     *
+     * @return array
+     */
+    public function csrf()
+    {
+        $csrf['nameKey'] = $this->csrf->getTokenNameKey();
+        $csrf['valueKey'] = $this->csrf->getTokenValueKey();
+        $csrf['name'] = $request->getAttribute($csrf['nameKey']);
+        $csrf['value'] = $request->getAttribute($csrf['valueKey']);
+        return $csrf;
+    }
+
+    /**
      * Magic function __get
      * @param  string $name
      * @return mixed

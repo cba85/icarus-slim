@@ -15,17 +15,17 @@ clean:
 	rm -rf public/css/application.min.css
 	rm -rf public/img/.gitkeep
 	rm -rf public/js/application.min.js
-    rm -rf resources/assets/css/style.css
-    rm -rf resources/assets/js/.gitkeep
-    rm -rf resources/lang/.gitkeep
-    rm -rf resources/mail/.gitkeep
-    rm -rf resources/views/includes/head.html
-    rm -rf resources/views/layouts/default.html
-    rm -rf resources/views/index.html
-    rm -rf src/Controllers/ExampleController.php
-    rm -rf src/Middlewares/ExampleMiddleware.php
-    rm -rf src/tests/HomepageTest.php
-    rm -rf tmp/views/.gitkeep
+	rm -rf resources/assets/css/style.css
+	rm -rf resources/assets/js/.gitkeep
+	rm -rf resources/lang/.gitkeep
+	rm -rf resources/views/includes/head.html
+	rm -rf resources/views/layouts/default.html
+	rm -rf resources/views/mail/.gitkeep
+	rm -rf resources/views/index.html
+	rm -rf src/Controllers/ExampleController.php
+	rm -rf src/Middlewares/ExampleMiddleware.php
+	rm -rf src/tests/HomepageTest.php
+	rm -rf tmp/views/.gitkeep
 	@echo 'Example files cleaned'
 
 # SERVE
