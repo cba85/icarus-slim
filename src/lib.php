@@ -6,6 +6,10 @@
 
 use Noodlehaus\Config;
 use Aura\Sql\ExtendedPdo;
+use Icarus\Lib;
+
+// Initiate libraries dependencies manager
+$lib = new Lib();
 
  // Configuration
 $container['config'] = function () {
@@ -52,14 +56,10 @@ $container['view'] = function ($container) {
 };
 
 // Flash message
-$container['flash'] = function () {
-    return new \Slim\Flash\Messages();
-};
+$container['flash'] = $lib->flash();
 
 // CSRF
-$container['csrf'] = function ($container) {
-    return new \Slim\Csrf\Guard;
-};
+$container['csrf'] = $lib->csrf();
 
 /**
  * Application middleware

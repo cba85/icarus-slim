@@ -4,7 +4,7 @@
 
 # INSTALL
 
-copy-env:
+env:
 	cp .env.example .env
 
 ## clean - Clean the project to remove demo assets.
@@ -12,7 +12,6 @@ clean:
 	rm -rf bin/.gitkeep
 	rm -rf db/.gitkeep
 	rm -rf docs/.gitkeep
-	rm -rf logs/.gitkeep
 	rm -rf public/css/application.min.css
 	rm -rf public/img/.gitkeep
 	rm -rf public/js/application.min.js
@@ -28,6 +27,7 @@ clean:
 	rm -rf src/Middlewares/ExampleMiddleware.php
 	rm -rf src/Models/.gitkeep
 	rm -rf src/tests/HomepageTest.php
+	rm -rf tmp/logs/.gitkeep
 	rm -rf tmp/views/.gitkeep
 	@echo 'Example files cleaned'
 
