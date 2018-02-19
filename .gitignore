@@ -4,3 +4,4 @@
 /tmp/views/*
 !/tmp/views/.gitkeep
 composer.lock
+.env
