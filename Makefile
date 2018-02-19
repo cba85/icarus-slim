@@ -11,6 +11,7 @@ copy-env:
 clean:
 	rm -rf bin/.gitkeep
 	rm -rf db/.gitkeep
+	rm -rf docs/.gitkeep
 	rm -rf logs/.gitkeep
 	rm -rf public/css/application.min.css
 	rm -rf public/img/.gitkeep
