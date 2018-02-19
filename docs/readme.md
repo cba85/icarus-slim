@@ -10,6 +10,16 @@ Icarus Slim is a framework based on [Slim](https://www.slimframework.com), the P
 - [Langage & libraries](#language-libraries)
 - [Architecture](#architecture)
 - [Features](#features)
+    - [.env](#dotenv)
+    - [Config files](#config-files)
+    - [Templating](#templating)
+    - [Logging](#logging)
+    - [Database](#database)
+    - [Flash messages](#flash-messages)
+    - [Basic authentification](#basic-authentification)
+    - [CSRF protection](#csrf-protection)
+    - [Validation](#validation)
+    - [Sitemap](#sitemap)
 - [Makefile](#makefile)
 - [Tests](#tests)
 - [Deploy](#deploy)
@@ -52,6 +62,14 @@ Create a `.env` file by copying the `.env-example` file and modify the values wi
 
 ```bash
 $ make copy-env
+```
+
+#### Load environment variables in Makefile
+
+Uncomment at the beginning of the `Makefile`:
+
+```bash
+include .env
 ```
 
 ### Apache
@@ -100,6 +118,14 @@ Dependancies packages are located in `vendor` folder and required in `composer.j
 
 The framework has an [editorconfig](http://editorconfig.org) file to respect PHP standards coding style.
 
+### .user.ini
+
+The framework has an [.user.ini](http://php.net/manual/fr/configuration.file.per-user.php) file for changing `php.ini` settings on some servers. (e.g [Heroku](https://devcenter.heroku.com/articles/custom-php-settings#php-runtime-settings)).
+
+### Procfile
+
+A [Procfile](https://devcenter.heroku.com/articles/getting-started-with-php#define-a-procfile) is included in the framework to explicitly declare what command should be executed to start the app on [Heroku](https://www.heroku.com/home).
+
 ## Architecture
 
 The architecture of the framework follows the rules of [pds/skeleton](https://github.com/php-pds/skeleton) the standard filesystem skeleton suitable for all PHP packages mixed with the ones of [Ruby on Rails](http://guides.rubyonrails.org/getting_started.html#creating-the-blog-application) for a web application.
@@ -132,8 +158,10 @@ tmp/
 .editorconfig
 .env.example
 .gitignore
+.user.ini
 composer.json
 Makefile
+Procfile
 ```
 
 ### Folders
@@ -187,7 +215,11 @@ The helper functions are autoloaded by Composer.
 
 ## Features
 
-### .Env
+This framework comes with all the basic features to create a website/web application.
+
+To remove one of them, simply remove the package in `composer.json` and its dependency in `src/lib.php`.
+
+### dotenv
 
 The framework use a `.env` file for environment variables thanks to [phpdotenv](https://github.com/vlucas/phpdotenv) package.
 
@@ -237,7 +269,7 @@ $this->config->get('app.url');
 $this->config->all();
 ```
 
-### Templating: Twig
+### Templating
 
 For templating, the framework uses [Twig](https://twig.symfony.com) library.
 
@@ -265,7 +297,7 @@ $container['view'];
 return $this->view($response, 'index.html');
 ```
 
-### Logger: Monolog
+### Logging
 
 For logging, the framework uses [Monolog](https://github.com/Seldaek/monolog) library.
 
@@ -295,7 +327,7 @@ Using the package natively:
     // ...
 ```
 
-### Database: Aura Sql
+### Database
 
 For database connection, the framework uses [aura/sql](https://github.com/auraphp/Aura.Sql).
 
@@ -308,6 +340,114 @@ This feature has a dependency in Slim container in `src/lib.php` file.
 ```php
 $container['db'];
 ```
+
+### Flash messages
+
+For flash messages, this framework uses [Slim Flash](https://github.com/slimphp/Slim-Flash).
+
+📖 [Documentation](https://github.com/slimphp/Slim-Flash)
+
+The framework uses [Slim Twig Flash](https://github.com/kanellov/slim-twig-flash) for rendering slim flash messages in Twig.
+
+#### Dependency
+
+This feature has a dependency in Slim container in `src/lib.php` file.
+
+```php
+$container['flash'];
+```
+
+### Usage
+
+Using controller helper:
+
+```php
+ $this->flash($message, $type);
+```
+
+Using the package natively:
+
+```php
+$this->flash->addMessage($type, $message);
+```
+
+In a Twig file:
+
+```html
+<!-- Flash message -->
+{% if flash.success %}
+    <div>{{ flash.success[0] }}</div>
+{% elseif flash.error %}
+    <div>{{ flash.error[0] }}</div>
+{% endif %}
+```
+
+### Basic authentification
+
+For basic authentification, this framework uses [Slim Basic Auth](https://github.com/tuupola/slim-basic-auth).
+
+📖 [Documentation](https://appelsiini.net/projects/slim-basic-auth/)
+
+ℹ️ Basic authentification is not activated by default.
+
+#### Dependency
+
+This feature has a dependency in Slim container in `src/lib.php` file.
+
+To activate the basic authentification, just uncomment the dedicated code to add the middleware:
+
+```php
+// Http authentification
+$app->add(new \Slim\Middleware\HttpBasicAuthentication([
+    "users" => [
+        "root" => "t00r",
+    ]
+]));
+```
+
+### CSRF protection
+
+For flash messages, this framework uses [Slim CSRF](https://github.com/slimphp/Slim-Csrf).
+
+📖 [Documentation](https://github.com/slimphp/Slim-Csrf)
+
+#### Dependency
+
+This feature has a dependency in Slim container in `src/lib.php` file.
+
+```php
+$container['csrf'];
+
+// Middleware
+$app->add(new \Slim\Csrf\Guard);
+```
+
+### Validation
+
+For validation, this framework uses [Slim Validation](https://github.com/DavidePastore/Slim-Validation), that internally uses [Respect/Validation](https://github.com/Respect/Validation).
+
+📖 [Slim Validation documentation](https://github.com/DavidePastore/Slim-Validation)<br>
+📖 [Respect Validation documentation](https://github.com/Respect/Validation)
+
+### Sitemap
+
+To create a sitemap of the website, this framework uses [samdark/sitemap](https://github.com/samdark/sitemap).
+
+📖 [Documentation](https://github.com/samdark/sitemap)
+
+By default, a route is created in `src/routes.php` and a controller `SitemapController.php` is included in `src/Controllers`.
+
+#### Usage
+
+1. Edit the `create()` method in `src/Controllers/SitemapController` to add pages in the sitemap.
+
+2. To create a sitemap, launch the Makefile command:
+
+    ```bash
+    make sitemap
+    ```
+
+The sitemap file `sitemap.xml` is created in `public/` folder.
 
 ## Makefile
 
@@ -346,6 +486,8 @@ $ phpunit
 On VPS like DigitalOcean, Linode... that uses Ubuntu
 
 ### Heroku
+
+The framework includes a `Procfile` to initiate a php web server on an Heroku server.
 
 In `index.php` file:
 

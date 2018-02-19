@@ -1,3 +1,7 @@
+# GET ENVIRONMENT VARIABLES
+
+#include .env
+
 # INSTALL
 
 copy-env:
@@ -38,10 +42,6 @@ debug:
 
 ## test-unit - Launch tests.
 test-unit: vendor/bin/phpunit
-
-# GET ENVIRONNEMENT VARIABLE
-
-#include .env
 
 # SITEMAP
 
