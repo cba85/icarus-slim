@@ -23,7 +23,9 @@ clean:
 	rm -rf resources/views/mail/.gitkeep
 	rm -rf resources/views/index.html
 	rm -rf src/Controllers/ExampleController.php
+	rm -rf src/Helpers/.gitkeep
 	rm -rf src/Middlewares/ExampleMiddleware.php
+	rm -rf src/Models/.gitkeep
 	rm -rf src/tests/HomepageTest.php
 	rm -rf tmp/views/.gitkeep
 	@echo 'Example files cleaned'

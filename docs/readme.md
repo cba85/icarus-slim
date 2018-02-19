@@ -5,7 +5,7 @@ Icarus Slim is a framework based on [Slim](https://www.slimframework.com), the P
 ## Index
 
 - [Philosophy](#philosophy)
-- [Slim framework](#slim-framework)
+- [Icarus Slim framework](#icarus-slim-framework)
 - [Getting started](#getting-started)
 - [Langage & libraries](#language-libraries)
 - [Architecture](#architecture)
@@ -38,9 +38,9 @@ This framework respect the [KISS](https://nl.wikipedia.org/wiki/KISS-principe) (
 
 David David Heinemeier Hansson in [Getting Real](https://www.amazon.com/Getting-Real-Smarter-Successful-Application/dp/0578012812/ref=sr_1_1?ie=UTF8&qid=1518841302&sr=8-1&keywords=getting+real).
 
-## Slim framework
+## Icarus Slim framework
 
-This framework is based on [Slim PHP micro framework](https://www.slimframework.com).
+The core of the framework is [Icarus Slim Framework](https://github.com/cba85/icarus-slim-framework), based on [Slim PHP micro framework](https://www.slimframework.com).
 
 📖 [Documentation](https://www.slimframework.com/docs/)
 
@@ -192,7 +192,7 @@ A [Procfile](https://devcenter.heroku.com/articles/getting-started-with-php#defi
 
 | Path | Description|
 |-|-|
-| `src/Helpers/helpers.php` | Helper functions |
+| `src/Helpers/` | Helpers folder |
 
 The helper functions are autoloaded by Composer.
 

@@ -22,8 +22,15 @@
         "slim/twig-view": "^2.2",
         "hassankhan/config": "^0.11.2",
         "kanellov/slim-twig-flash": "^0.2.0",
-        "aura/sql": "^2.5"
+        "aura/sql": "^2.5",
+        "cba85/icarus-slim-framework": "dev-master"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:/cba85/icarus-slim-framework.git"
+        }
+    ],
     "require-dev": {
         "phpunit/phpunit": "^6.0"
     },
