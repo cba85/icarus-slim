@@ -72,11 +72,13 @@ Uncomment at the beginning of the `Makefile`:
 include .env
 ```
 
-### Apache
+### Servers
+
+#### Apache
 
 The framework comes with an `/public/.htaccess` file.
 
-### Nginx
+#### Nginx
 
 In `nginx.conf` file of the server:
 
@@ -113,18 +115,6 @@ Php >= `7.0` is required.
 ### Composer
 
 Dependancies packages are located in `vendor` folder and required in `composer.json`.
-
-### .editorconfig
-
-The framework has an [editorconfig](http://editorconfig.org) file to respect PHP standards coding style.
-
-### .user.ini
-
-The framework has an [.user.ini](http://php.net/manual/fr/configuration.file.per-user.php) file for changing `php.ini` settings on some servers. (e.g [Heroku](https://devcenter.heroku.com/articles/custom-php-settings#php-runtime-settings)).
-
-### Procfile
-
-A [Procfile](https://devcenter.heroku.com/articles/getting-started-with-php#define-a-procfile) is included in the framework to explicitly declare what command should be executed to start the app on [Heroku](https://www.heroku.com/home).
 
 ## Architecture
 
@@ -163,6 +153,18 @@ composer.json
 Makefile
 Procfile
 ```
+
+### .editorconfig
+
+The framework has an [editorconfig](http://editorconfig.org) file to respect PHP standards coding style.
+
+### .user.ini
+
+The framework has an [.user.ini](http://php.net/manual/fr/configuration.file.per-user.php) file for changing `php.ini` settings on some servers. (e.g [Heroku](https://devcenter.heroku.com/articles/custom-php-settings#php-runtime-settings)).
+
+### Procfile
+
+A [Procfile](https://devcenter.heroku.com/articles/getting-started-with-php#define-a-procfile) is included in the framework to explicitly declare what command should be executed to start the app on [Heroku](https://www.heroku.com/home).
 
 ### Folders
 
@@ -211,6 +213,7 @@ The helper functions are autoloaded by Composer.
 
 | Path | Description|
 |-|-|
+| `resources/lang/` | Internationalisation files |
 | `resources/views/` | Views (Twig) folder |
 
 ## Features
@@ -473,7 +476,9 @@ Scripts are categorized:
 
 ## Tests
 
-To execute the test suite, you'll need phpunit.
+To execute the test suite, you'll need [phpunit](https://phpunit.de).
+
+Phpunit is installed using Composer on your local/dev environment.
 
 ```bash
 $ phpunit
@@ -489,23 +494,31 @@ On VPS like DigitalOcean, Linode... that uses Ubuntu
 
 The framework includes a `Procfile` to initiate a php web server on an Heroku server.
 
-In `index.php` file:
+To deploy on an Heroku server, you have to do some modification because the `dotenv` library is not compatible with the Heroku environment variables.
 
-```php
-// Load secret parameters (.env)
-if (env('HEROKU') == null) {
-    $dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
-    $dotenv->load();
-}
-```
+1. First, create an `HEROKU` variable on your Heroku application:
 
-In `composer.json` file, move `vlucas/phpdotenv` from `require` to `require-dev`:
+    ```
+    HEROKU=true
+    ```
 
-```php
-"require-dev": {
-    "vlucas/phpdotenv": "^2.4",
-},
-```
+2. In `index.php` file, add:
+
+    ```php
+    // Load secret parameters (.env)
+    if (env('HEROKU') == null) {
+        $dotenv = new Dotenv\Dotenv(__DIR__ . '/../');
+        $dotenv->load();
+    }
+    ```
+
+3. In `composer.json` file, move `vlucas/phpdotenv` from `require` to `require-dev` to continue using the `dotenv` package on your `local/dev` environment:
+
+    ```php
+    "require-dev": {
+        "vlucas/phpdotenv": "^2.4",
+    },
+    ```
 
 ### Gandi
 
