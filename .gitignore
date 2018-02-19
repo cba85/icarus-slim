@@ -1,4 +1,6 @@
-/logs/*
 /vendor
-/tmp/*
+/tmp/logs/*
+!/tmp/logs/.gitkeep
+/tmp/views/*
+!/tmp/views/.gitkeep
 composer.lock
