@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Slim\Http\Request;
+use Icarus\Controller as Controller;
 
 /**
  * Controller for web pages
