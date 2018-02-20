@@ -6,7 +6,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Environment;
 
-class BaseTestCase extends \PHPUnit\Framework\TestCase
+class BaseTestCase extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -46,13 +46,13 @@ class BaseTestCase extends \PHPUnit\Framework\TestCase
         $response = new Response();
 
         // Use the application settings
-        $settings = require __DIR__ . '/../../src/settings.php';
+        $settings = require __DIR__ . '/../../config/slim.php';
 
         // Instantiate the application
         $app = new App($settings);
 
         // Set up dependencies
-        $settings = require __DIR__ . '/../config/slim.php';
+        require __DIR__ . '/../src/dependencies.php';
 
         // Register middleware
         /*
