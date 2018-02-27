@@ -19,9 +19,12 @@ $dotenv->load();
 $settings = require __DIR__ . '/../config/slim.php';
 $app = new \Slim\App($settings);
 
-// Set up dependencies and register middleware
+// Set up dependencies
 $container = $app->getContainer();
 require __DIR__ . '/../src/dependencies.php';
+
+// Register middlewares
+require __DIR__ . '/../src/middlewares.php';
 
 // Register routes
 require __DIR__ . '/../src/routes.php';
