@@ -18,6 +18,6 @@ class ExampleController extends Controller
     public function home($request, $response)
     {
         $this->log('home');
-        return $this->view($response, 'index.html');
+        return $this->renderView($response, 'index.html');
     }
 }
