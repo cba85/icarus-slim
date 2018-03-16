@@ -5,4 +5,4 @@
 !/tmp/views/.gitkeep
 composer.lock
 .env
-/resources/assets/css/.sass-cache
+.sass-cache
