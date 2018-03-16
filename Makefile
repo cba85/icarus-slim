@@ -6,17 +6,18 @@
 
 env:
 	cp .env.example .env
+	@echo '✅ .env file copied'
 
 ## clean - Clean the project to remove demo assets.
 clean:
 	rm -rf bin/.gitkeep
 	rm -rf db/.gitkeep
 	rm -rf docs/.gitkeep
-	rm -rf public/css/application.min.css
+	rm -rf public/css/style.css
 	rm -rf public/img/.gitkeep
 	rm -rf public/js/application.min.js
-	rm -rf resources/assets/css/style.css
-	rm -rf resources/assets/js/.gitkeep
+	rm -rf resources/assets/css/style.scss
+	rm -rf resources/assets/js/scripts.js
 	rm -rf resources/lang/.gitkeep
 	rm -rf resources/views/includes/head.html
 	rm -rf resources/views/layouts/default.html
@@ -29,7 +30,7 @@ clean:
 	rm -rf src/tests/HomepageTest.php
 	rm -rf tmp/logs/.gitkeep
 	rm -rf tmp/views/.gitkeep
-	@echo 'Example files cleaned'
+	@echo '✅ Example files cleaned'
 
 # SERVE
 
@@ -51,86 +52,72 @@ test-unit: vendor/bin/phpunit
 ## sitemap - Create a sitemap.
 sitemap:
 	curl $(APP_URL)/sitemap/create
+	@echo '✅ Sitemap created'
 
+# ASSETS (CSS AND JS FILES)
+
+# Assets configuration (folders and files)
 # CSS
-
-# Assets folders
 CSS_FOLDER = public/assets/css
-JS_FOLDER = public/assets/js
+CSS_FILES = $(CSS_FOLDER)/style.css
+CSS_TEMP = $(CSS_FOLDER)/style.css
+CSS_FINAL = $(CSS_FOLDER)/style.min.css
+# JS
+JS_FOLDER = resources/assets/js
+JS_FOLDER_PUBLIC = public/assets/js
+JS_FILES = $(JS_FOLDER)/scripts.js
+JS_TEMP = $(JS_FOLDER_PUBLIC)/scripts.js
+JS_FINAL = $(JS_FOLDER_PUBLIC)/scripts.min.js
 
-# Patterns matching CSS files that should be minified. Files with a -min.css
-# suffix will be ignored.
-CSS_FILES = $(filter-out %.min.css,$(wildcard \
-	$(CSS_FOLDER)/*.css \
-))
+# sass - Convert saas files to css files.
+sass:
+	sass resources/assets/saas/style.scss public/assets/css/style.css
+	@echo '✅ Saas files converted to CSS files'
 
-# Patterns matching JS files that should be minified. Files with a -min.js
-# suffix will be ignored.
-JS_FILES = $(filter-out %.min.js,$(wildcard \
-	$(JS_FOLDER)/*.js \
-))
-
-# Commands
-CSS_MINIFIER = curl -X POST -s --data-urlencode 'input@CSS_TMP' https://cssminifier.com/raw
-JS_MINIFIER = curl -X POST -s --data-urlencode 'input@JS_TMP' https://javascript-minifier.com/raw
-
-CSS_MINIFIED = $(CSS_FILES:.css=.min.css)
-JS_MINIFIED = $(JS_FILES:.js=.min.js)
-
-## minify - Minifies CSS and JS.
-minify: minify-css minify-js
-
-## minify-css - Minifies CSS.
-minify-css: $(CSS_FILES) $(CSS_MINIFIED)
-
-## minify-js - Minifies JS.
-minify-js: $(JS_FILES) $(JS_MINIFIED)
-
-%.min.css: %.css
-	@echo '  Minifying $< ==> $@'
-	$(subst CSS_TMP,$(<),$(CSS_MINIFIER)) > $@
-	@echo
-
-%.min.js: %.js
-	@echo '  Minifying $< ==> $@'
-	$(subst JS_TMP,$(<),$(JS_MINIFIER)) > $@
-	@echo
-
-## minify-clean - Removes minified CSS and JS files.
-minify-clean:
-	rm -f $(CSS_MINIFIED) $(JS_MINIFIED)
+# move-js - Move js files in public folder.
+move-js:
+	cp $(JS_FILES) $(JS_TEMP)
 
 # CONCAT
 
-# JS files
-JS_FINAL = $(JS_FOLDER)/application.min.js
-
-JS_TARGETS = $(JS_FOLDER)/scripts.min.js \
-             $(JS_FOLDER)/test.min.js
-
-$(JS_FINAL): $(JS_MINIFIED)
-	cat $^ >$@
-	rm -f $^
+## concat-css - Concat css files.
+concat-css:
+	cat $(CSS_FILES) > $(CSS_TEMP)
+	@echo '✅ Css files concatenated'
 
 ## concat-js - Concat js files.
-concat-js: $(JS_FINAL)
+concat-js:
+	cat $(JS_FILES) > $(JS_TEMP)
+	@echo '✅ Js files concatenated'
 
-# CSS files
-CSS_FINAL = $(CSS_FOLDER)/application.min.css
-CSS_TARGETS = $(CSS_FOLDER)/style.min.css \
-              $(CSS_FOLDER)/test.min.css
+# MINIFY
 
-$(CSS_FINAL): $(CSS_TARGETS)
-	cat $^ >$@
-	rm -f $(CSS_TARGETS)
+## minify-css - Minifies CSS.
+minify-css:
+	curl -X POST -s --data-urlencode 'input@$(CSS_TEMP)' https://cssminifier.com/raw > $(CSS_FINAL)
+	rm -rf $(CSS_TEMP)
+	@echo '✅ CSS files minified'
 
-## concat-css - Concat css files.
-concat-css: $(CSS_FINAL)
+## minify-js - Minifies JS.
+minify-js:
+	curl -X POST -s --data-urlencode 'input@$(JS_TEMP)' https://javascript-minifier.com/raw > $(JS_FINAL)
+	rm -rf $(JS_TEMP)
+	@echo '✅ JS files minified'
 
-# Concat all
+# ASSETS (CSS + JS) OPTIMISATION
 
-## concat - Concat assets.
-concat: $(JS_FINAL) $(CSS_FINAL)
+## optimize-css - Concat and minify css files.
+# optimize-css: sass concat-css minify-css
+optimize-css: sass minify-css
+	@echo '✅ CSS files optimized'
+
+## optimize-js - Concat js files.
+# optimize-js: move-js concat-js minify-js
+optimize-js: move-js minify-js
+	@echo '✅ JS files optimized'
+
+## optimize - Optimize assets files.
+optimize: optimize-css optimize-js
 
 # HELP
 
