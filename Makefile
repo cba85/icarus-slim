@@ -118,6 +118,7 @@ optimize-js: move-js minify-js
 
 ## optimize - Optimize assets files.
 optimize: optimize-css optimize-js
+	@echo '✅ Assets files optimized'
 
 # HELP
 
