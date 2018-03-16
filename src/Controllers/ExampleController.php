@@ -17,11 +17,7 @@ class ExampleController extends Controller
      */
     public function home($request, $response)
     {
-        // Test database
-        //$posts = $this->db->fetchAll('SELECT * FROM posts');
-        // Test logger
         $this->log('home');
-        // Test view
         return $this->view($response, 'index.html');
     }
 }
