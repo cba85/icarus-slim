@@ -44,8 +44,8 @@ debug:
 
 # TESTS
 
-## test-unit - Launch tests.
-test-unit: vendor/bin/phpunit
+## tests - Launch tests.
+tests: vendor/bin/phpunit
 
 # SITEMAP
 
@@ -90,19 +90,27 @@ concat-js:
 	cat $(JS_FILES) > $(JS_TEMP)
 	@echo '✅ Js files concatenated'
 
+## concat - Concat css and js files.
+concat: concat-css concat-js
+	@echo '✅ Css and js files concatenated'
+
 # MINIFY
 
 ## minify-css - Minifies CSS.
 minify-css:
 	curl -X POST -s --data-urlencode 'input@$(CSS_TEMP)' https://cssminifier.com/raw > $(CSS_FINAL)
 	rm -rf $(CSS_TEMP)
-	@echo '✅ CSS files minified'
+	@echo '✅ Css files minified'
 
 ## minify-js - Minifies JS.
 minify-js:
 	curl -X POST -s --data-urlencode 'input@$(JS_TEMP)' https://javascript-minifier.com/raw > $(JS_FINAL)
 	rm -rf $(JS_TEMP)
-	@echo '✅ JS files minified'
+	@echo '✅ Js files minified'
+
+## minify - Minifies css and js files.
+minify: minify-css minify-js
+	@echo '✅ Css and js files minified'
 
 # ASSETS (CSS + JS) OPTIMISATION
 
