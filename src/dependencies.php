@@ -46,6 +46,10 @@ $container['view'] = function ($container) {
     $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
     $view->addExtension(new Twig_Extension_Debug());
     $view->addExtension(new Knlv\Slim\Views\TwigMessages(new Slim\Flash\Messages()));
+    $view->getEnvironment()->addGlobal('auth', [
+        'check' => $container->auth->check(),
+        'user' => $container->auth->user()
+    ]);
     return $view;
 };
 
