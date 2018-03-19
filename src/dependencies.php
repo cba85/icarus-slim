@@ -8,6 +8,7 @@ use Noodlehaus\Config;
 use Icarus\Database;
 use Icarus\Flash;
 use Icarus\Csrf;
+use Icarus\Auth;
 
  // Configuration
 $container['config'] = function () {
@@ -46,6 +47,11 @@ $container['view'] = function ($container) {
     $view->addExtension(new Twig_Extension_Debug());
     $view->addExtension(new Knlv\Slim\Views\TwigMessages(new Slim\Flash\Messages()));
     return $view;
+};
+
+// Auth
+$container['auth'] = function ($container) {
+    return new Auth($container['db']);
 };
 
 // Flash message
