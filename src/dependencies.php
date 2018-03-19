@@ -5,7 +5,7 @@
  */
 
 use Noodlehaus\Config;
-use Aura\Sql\ExtendedPdo;
+use Icarus\Database;
 use Icarus\Flash;
 use Icarus\Csrf;
 
@@ -31,12 +31,7 @@ $container['logger'] = function ($container) {
 // Database
 $container['db'] = function ($container) {
     $settings = $container['config']->get('database');
-    return new ExtendedPdo(
-        $settings['driver'] . ':dbname=' . $settings['database'] . ';host=' . $settings['host'],
-        $settings['username'],
-        $settings['password'],
-        ['PDO::ATTR_ERRMODE','PDO::ERRMODE_EXCEPTION']
-    );
+    return new Database($settings);
 };
 
 // View renderer (twig)
