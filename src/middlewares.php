@@ -2,6 +2,7 @@
 
 //use Boronczyk\LocalizationMiddleware;
 
+// CSRF
 $app->add(new \Slim\Csrf\Guard);
 
 // Http authentification

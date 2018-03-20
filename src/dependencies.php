@@ -6,8 +6,6 @@
 
 use Noodlehaus\Config;
 use Icarus\Database;
-use Icarus\Flash;
-use Icarus\Csrf;
 use Icarus\Auth;
 
 // Configuration
@@ -59,11 +57,11 @@ $container['auth'] = function ($container) {
 };
 
 // Flash message
-$container['flash'] = function () {
-    return new Flash;
+$container['flash'] = function ($container) {
+    return new \Slim\Flash\Messages();
 };
 
 // CSRF
-$container['csrf'] = function () {
-    return new Csrf;
+$container['csrf'] = function ($container) {
+    return new \Slim\Csrf\Guard;
 };
