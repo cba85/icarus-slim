@@ -10,7 +10,7 @@ use Icarus\Flash;
 use Icarus\Csrf;
 use Icarus\Auth;
 
- // Configuration
+// Configuration
 $container['config'] = function () {
     return new Config([
         __DIR__ . '/../config/app.php',
@@ -64,6 +64,6 @@ $container['flash'] = function () {
 };
 
 // CSRF
-$container['flash'] = function () {
+$container['csrf'] = function () {
     return new Csrf;
 };
